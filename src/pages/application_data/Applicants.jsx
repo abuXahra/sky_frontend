@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
 import axios from 'axios';
 import * as XLSX from 'xlsx';
-import styled from 'styled-components'; // Import styled-components
 import { ButtonWrapper, DataTableContent, DataTableWrapper, NoData, StyledTable, StyledTableCell, StyledTableHead } from './applicant.style';
 import Button from '../../components/clicks/button/Button';
 import { useNavigate } from 'react-router-dom';
@@ -48,12 +47,13 @@ const DataTable = () => {
       LastName: user.lastName,
       Email: user.email,
       PhoneNumber: user.phoneNumber,
+      shopAddress: user.shopAddress,
       Category: user.selectedCategory,
-      SchoolName: user.nameOfSchoolG || user.nameOfSchoolS,
-      YearOfGraduation: user.yearOfGraduateG || '',
-      CourseOfStudy: user.courseOfStudyG || user.courseOfStudyS,
-      Level: '' || user.levelS,
       SupportType: user.selectedCategory === 'Entrepreneur' ? user.selectedSupportType : '-',
+      SchoolName: user.nameOfSchoolG || user.nameOfSchoolS || '-',
+      YearOfGraduation: user.yearOfGraduateG || '-',
+      CourseOfStudy: user.courseOfStudyG || user.courseOfStudyS || '-',
+      Level: user.levelS || '-',
     }));
 
     // Convert data to Excel sheet format
@@ -106,12 +106,14 @@ if(data.length === 0){
                 <StyledTableCell>Last Name</StyledTableCell>
                 <StyledTableCell>Email</StyledTableCell>
                 <StyledTableCell>Phone Number</StyledTableCell>
+                <StyledTableCell>Shop Address</StyledTableCell>
                 <StyledTableCell>Category</StyledTableCell>
+                <StyledTableCell>Support Type</StyledTableCell>
                 <StyledTableCell>School Name</StyledTableCell>
                 <StyledTableCell>Year of Graduation</StyledTableCell>
                 <StyledTableCell>Course of Study</StyledTableCell>
                 <StyledTableCell>Level</StyledTableCell>
-                <StyledTableCell>Support Type</StyledTableCell>
+                
               </TableRow>
             </StyledTableHead>
             <TableBody>
@@ -122,12 +124,13 @@ if(data.length === 0){
                   <TableCell>{user.lastName}</TableCell>
                   <TableCell>{user.email}</TableCell>
                   <TableCell>{user.phoneNumber}</TableCell>
+                  <TableCell>{user.shopAddress}</TableCell>
                   <TableCell>{user.selectedCategory}</TableCell>
-                  <TableCell>{user.nameOfSchoolG || user.nameOfSchoolS}</TableCell>
-                  <TableCell>{user.yearOfGraduateG || ''}</TableCell>
-                  <TableCell>{user.courseOfStudyG || user.courseOfStudyS}</TableCell>
-                  <TableCell>{user.levelS || ''}</TableCell>
                   <TableCell>{user.selectedCategory === 'Entrepreneur' ? user.selectedSupportType : '-'}</TableCell>
+                  <TableCell>{user.nameOfSchoolG || user.nameOfSchoolS || '-'}</TableCell>
+                  <TableCell>{user.yearOfGraduateG || '-'}</TableCell>
+                  <TableCell>{user.courseOfStudyG || user.courseOfStudyS || '-'}</TableCell>
+                  <TableCell>{user.levelS || '-'}</TableCell>
                 </TableRow>
               ))}
             </TableBody>

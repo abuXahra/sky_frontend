@@ -59,7 +59,6 @@ const category = [
 
 
     // Entrepreneur Variabels
-
     const [selectedSupportType, setselectedSupportType] = useState('');
     const [selectedSupportTypeError, setselectedSupportTypeError] = useState(false);
    
