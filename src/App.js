@@ -16,6 +16,7 @@ import Head from "./components/header/head/Head";
 // import Loader from "./components/loader/Loader";
 
 import ScrollToTop from "./components/context/ScrollToTop";
+import Applicants from "./pages/application_data/Applicants";
 
 function App() {
   // const { user } = useContext(UserContext);
@@ -26,6 +27,7 @@ function App() {
         <Head />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/applicants" element={<Applicants />} />
         </Routes>
       </ScrollToTop>
     </Router>

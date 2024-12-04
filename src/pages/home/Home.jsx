@@ -1,16 +1,21 @@
 import React, { useContext, useEffect, useState } from 'react';
 import Button from '../../components/clicks/button/Button';
 import Links from '../../components/clicks/links/Links';
-import { HomePostSlideSection, HomeTopSection, HomeTopSectionContent, HomeTopSectionLeft, HomeTopSectionRight, HomeTopSectionRightContent, HomeWrapper, PostCategory, RecentPostWrapper, RecentWrapper, WrapperDiv, RecentPost, RecentPostImg, RecentPostContent, PostTitleStyled, PostIconStyled, EditStyled, EditIconStyled, EditTitledStyled, AuthorStyled, AuthorIconStyled, AuthorTitledStyled, DateStyled, DateIconStyled, DateTitledStyled, PostLink, EnternCat, EnterRecent, EnterCat, EntertainCatWrapper, CatWrapper, CategorList, CategoryListItem, MarginTop, FashionCat, FashionCatImag, FashionCatText, Ads, SocialMedia, SocialListItem, Subscibe, SubscibeWrapper, InputStyled, VideoWrapper, VideoCover, VideoPlayIcon, VideoOverlay, VideoAuthor, VideoTitle, InputHorizontalWrapper, FormWrapper, HideContentWrapper } from './Home.style';
+import { HomePostSlideSection, HomeTopSection, HomeTopSectionContent, HomeTopSectionLeft, HomeTopSectionRight, HomeTopSectionRightContent, HomeWrapper, PostCategory, RecentPostWrapper, RecentWrapper, WrapperDiv, RecentPost, RecentPostImg, RecentPostContent, PostTitleStyled, PostIconStyled, EditStyled, EditIconStyled, EditTitledStyled, AuthorStyled, AuthorIconStyled, AuthorTitledStyled, DateStyled, DateIconStyled, DateTitledStyled, PostLink, EnternCat, EnterRecent, EnterCat, EntertainCatWrapper, CatWrapper, CategorList, CategoryListItem, MarginTop, FashionCat, FashionCatImag, FashionCatText, Ads, SocialMedia, SocialListItem, Subscibe, SubscibeWrapper, InputStyled, VideoWrapper, VideoCover, VideoPlayIcon, VideoOverlay, VideoAuthor, VideoTitle, InputHorizontalWrapper, FormWrapper, HideContentWrapper, SuccessIcon } from './Home.style';
 import Input from '../../components/input_2/Input';
 import TextArea from '../../components/textarea/TextArea';
 import SelectInput from '../../components/selectInput/SelectInput';
 import axios from 'axios';
+import Overlay from '../../components/overlay/Overlay';
+import {GiCheckMark} from 'react-icons/gi'
+import ButtonLoader from '../../components/clicks/button/button_loader/ButtonLoader';
 
 
 
 const Home = () => {
 
+    const [showSuccessCard, setShowSuccessCard ] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
 
     // Category data selection
 const category = [
@@ -49,12 +54,12 @@ const category = [
     const [courseOfStudyG, setCourseOfStudyG] = useState('');
     const [courseOfStudyGError, setCourseOfStudyGError] = useState(false);
 
-    const [isLoading, setIsLoading] = useState(false);
+   
 
     // Entrepreneur Variabels
 
     const [selectedSupportType, setselectedSupportType] = useState('');
-    const [selectedSupportTypeError, setselectedSupportTypeError] = useState('');
+    const [selectedSupportTypeError, setselectedSupportTypeError] = useState(false);
    
     const supportType = [
         { title: 'Select Support Type', value: '' },
@@ -127,9 +132,6 @@ const category = [
         }else if (type === 'courseOfStudyG') {
             setCourseOfStudyG(e.target.value);
             setCourseOfStudyGError(false);
-        }else if (type === 'Support Type') {
-            setselectedSupportType(e.target.value);
-            setselectedSupportTypeError(false);
         }else if (type === 'Support Type') {
             setselectedSupportType(e.target.value);
             setselectedSupportTypeError(false);
@@ -232,14 +234,8 @@ const category = [
                     const res = await axios.post(process.env.REACT_APP_URL+'/api/users', newUser)
                     console.log(res.data);
                     setIsLoading(false);
-                    alert('Form submitted successfully!');
                     // Reset form values
-                    setFirstName('');
-                    setLastName('');
-                    setEmail('');
-                    setPhoneNumber('');
-                    setShopAddress('');
-                    setSelectedCategory('');
+                   setShowSuccessCard(true);
                 } catch (error) {
                     setIsLoading(false)
                     console.log(error)
@@ -247,6 +243,24 @@ const category = [
             }
   };
 
+
+   const handleCloseSucessCard = () =>{
+        setFirstName('');
+        setLastName('');
+        setEmail('');
+        setPhoneNumber('');
+        setShopAddress('');
+        setSelectedCategory('');
+        setNameOfSchoolG('')
+        setYearOfGraduateG('')
+        setCourseOfStudyG('')
+        setselectedSupportType('')
+        setNameOfSchoolS('')
+        setCourseOfStudyS('')
+        setLevelS('')
+        setShowSuccessCard(false);
+  
+   }
 
     return (
         <HomeWrapper>
@@ -369,7 +383,7 @@ const category = [
                         label={"Support Type"}
                           options={supportType} 
                           title={'Support Type'} 
-                          error={selectedCategoryError} 
+                          error={selectedSupportTypeError} 
                           onChange={(e)=>handleValueChange('Support Type', e)}
                       />
 
@@ -415,9 +429,21 @@ const category = [
 }
                 {/* button */}
                 <div>
-                    <Button btnPd={"15px 40px"} btnText={'Submit'} btnColor={'green'} />
+                    <Button btnPd={"10px 15px"} btnText={isLoading ? <ButtonLoader text={'Submitting'}/>: 'Submit'} btnColor={'green'} />
                 </div>
             </FormWrapper>
+
+            {showSuccessCard && 
+            <Overlay
+              btnDisplayNo={"none"}
+              closeOverlayOnClick={handleCloseSucessCard}
+              overlayButtonClick={handleCloseSucessCard}
+            >
+                <SuccessIcon>
+                    <GiCheckMark />
+                </SuccessIcon>
+                <p>We have received your information and will get in touch with you soon</p>
+            </Overlay>}
         </HomeWrapper>
     );
 };
