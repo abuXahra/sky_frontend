@@ -56,7 +56,7 @@ const category = [
     const [courseOfStudyG, setCourseOfStudyG] = useState('');
     const [courseOfStudyGError, setCourseOfStudyGError] = useState(false);
 
-   
+
 
     // Entrepreneur Variabels
 
@@ -78,7 +78,7 @@ const category = [
     const [levelS, setLevelS] = useState('');
     const [levelSError, setLevelSError] = useState(false);
 
-   
+
     const [showGraduate, setShowGraduate] = useState(false);
     const [showEntreprenuer, setShowEntreprenuer] = useState(false);
     const [showStudent, setShowStudent] = useState(false);
@@ -109,15 +109,37 @@ const category = [
                 if (e.target.value === 'Graduate') {
                     setShowGraduate(true);
                     setShowEntreprenuer(false);
+                    // entreprenuer set null
+                    setselectedSupportType('');
+                    // student set null
+                    setNameOfSchoolS('')
+                    setCourseOfStudyS('')
+                    setLevelS('')
                     setShowStudent(false);
+
                 } else if (e.target.value === 'Entrepreneur') {
                     setShowGraduate(false);
                     setShowEntreprenuer(true);
                     setShowStudent(false);
+                    // graduate set null
+                    setNameOfSchoolG('')
+                    setYearOfGraduateG('')
+                    setCourseOfStudyG('')
+                    // student set null
+                    setNameOfSchoolS('')
+                    setCourseOfStudyS('')
+                    setLevelS('')
+
                 } else if (e.target.value === 'Student') {
                     setShowGraduate(false);
                     setShowEntreprenuer(false);
                     setShowStudent(true);
+                    // graduate set null
+                    setNameOfSchoolG('')
+                    setYearOfGraduateG('')
+                    setCourseOfStudyG('')
+                    // entreprenuer set null
+                    setselectedSupportType('');
                 } else {
                     // Reset all sections if no category is selected
                     setShowGraduate(false);
