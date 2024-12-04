@@ -66,7 +66,7 @@ const category = [
     const supportType = [
         { title: 'Select Support Type', value: '' },
         { title: 'Equipment', value: 'Equipment' },
-        { title: 'Grant', value: 'Grant' },
+        { title: 'Business Support', value: 'Business Support' },
       ];
 
     
