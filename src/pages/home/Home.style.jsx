@@ -17,6 +17,7 @@ export const HomeWrapper = styled.div`
     align-items: center;
     background-color: aliceblue;
     padding: 50px;
+    position: relative;
 
     @media (max-width: 768px) {
         padding: 20px;
@@ -69,3 +70,4 @@ export const SuccessIcon = styled.div`
     color: white;
     border-radius: 100%;
 `
+

@@ -1,11 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button } from '@mui/material';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
 import axios from 'axios';
 import * as XLSX from 'xlsx';
-import { DataTableContent, DataTableWrapper } from './applicant.style';
+import styled from 'styled-components'; // Import styled-components
+import { ButtonWrapper, DataTableContent, DataTableWrapper, NoData, StyledTable, StyledTableCell, StyledTableHead } from './applicant.style';
+import Button from '../../components/clicks/button/Button';
+import { useNavigate } from 'react-router-dom';
+
+
+// Define styled-components for table elements
+
 
 const DataTable = () => {
   const [data, setData] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Fetch data from your API or MongoDB
@@ -39,6 +47,7 @@ const DataTable = () => {
       SchoolName: user.nameOfSchoolG || user.nameOfSchoolS,
       YearOfGraduation: user.yearOfGraduateG || '',
       CourseOfStudy: user.courseOfStudyG || user.courseOfStudyS,
+      Level: '' || user.levelS,
       SupportType: user.selectedCategory === 'Entrepreneur' ? user.selectedSupportType : '-',
     }));
 
@@ -51,36 +60,53 @@ const DataTable = () => {
     XLSX.writeFile(wb, 'users_data.xlsx');
   };
 
+
+
+if(data.length === 0){
+  return (
+    <NoData>No Data</NoData>
+  );
+}
+
+
   return (
     <DataTableWrapper>
       <DataTableContent>
         {/* Button to trigger export */}
-        <Button 
-          variant="contained" 
-          color="primary" 
-          onClick={exportToExcel} 
-          style={{ marginBottom: '20px' }}
-        >
-          Export to Excel
-        </Button>
+        <ButtonWrapper>
+            <Button
+              btnColor={'green'} 
+              btnOnClick={exportToExcel}
+              btnText={'Export'}
+              btnPd={"10px"}
+            />
+            
+            <Button
+              btnColor={'black'} 
+              btnOnClick={()=> navigate('/')}
+              btnText={'Home'}
+              btnPd={"10px"}
+            />
+        </ButtonWrapper>
+  
 
         <TableContainer component={Paper}>
-          <Table>
-            <TableHead>
+          <StyledTable>
+            <StyledTableHead>
               <TableRow>
-                <TableCell>#</TableCell> {/* Serial Number Column */}
-                <TableCell>First Name</TableCell>
-                <TableCell>Last Name</TableCell>
-                <TableCell>Email</TableCell>
-                <TableCell>Phone Number</TableCell>
-                <TableCell>Category</TableCell>
-                <TableCell>School Name</TableCell>
-                <TableCell>Year of Graduation</TableCell>
-                <TableCell>Course of Study</TableCell>
-                <TableCell>Level</TableCell>
-                <TableCell>Support Type</TableCell>
+                <StyledTableCell>S/N</StyledTableCell> {/* Serial Number Column */}
+                <StyledTableCell>First Name</StyledTableCell>
+                <StyledTableCell>Last Name</StyledTableCell>
+                <StyledTableCell>Email</StyledTableCell>
+                <StyledTableCell>Phone Number</StyledTableCell>
+                <StyledTableCell>Category</StyledTableCell>
+                <StyledTableCell>School Name</StyledTableCell>
+                <StyledTableCell>Year of Graduation</StyledTableCell>
+                <StyledTableCell>Course of Study</StyledTableCell>
+                <StyledTableCell>Level</StyledTableCell>
+                <StyledTableCell>Support Type</StyledTableCell>
               </TableRow>
-            </TableHead>
+            </StyledTableHead>
             <TableBody>
               {data.map((user, index) => (
                 <TableRow key={index}>
@@ -93,12 +119,12 @@ const DataTable = () => {
                   <TableCell>{user.nameOfSchoolG || user.nameOfSchoolS}</TableCell>
                   <TableCell>{user.yearOfGraduateG || ''}</TableCell>
                   <TableCell>{user.courseOfStudyG || user.courseOfStudyS}</TableCell>
-                  <TableCell>{'' || user.levelS}</TableCell>
+                  <TableCell>{user.levelS || ''}</TableCell>
                   <TableCell>{user.selectedCategory === 'Entrepreneur' ? user.selectedSupportType : '-'}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
-          </Table>
+          </StyledTable>
         </TableContainer>
       </DataTableContent>
     </DataTableWrapper>

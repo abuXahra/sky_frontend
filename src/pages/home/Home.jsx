@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import Button from '../../components/clicks/button/Button';
 import Links from '../../components/clicks/links/Links';
-import { HomePostSlideSection, HomeTopSection, HomeTopSectionContent, HomeTopSectionLeft, HomeTopSectionRight, HomeTopSectionRightContent, HomeWrapper, PostCategory, RecentPostWrapper, RecentWrapper, WrapperDiv, RecentPost, RecentPostImg, RecentPostContent, PostTitleStyled, PostIconStyled, EditStyled, EditIconStyled, EditTitledStyled, AuthorStyled, AuthorIconStyled, AuthorTitledStyled, DateStyled, DateIconStyled, DateTitledStyled, PostLink, EnternCat, EnterRecent, EnterCat, EntertainCatWrapper, CatWrapper, CategorList, CategoryListItem, MarginTop, FashionCat, FashionCatImag, FashionCatText, Ads, SocialMedia, SocialListItem, Subscibe, SubscibeWrapper, InputStyled, VideoWrapper, VideoCover, VideoPlayIcon, VideoOverlay, VideoAuthor, VideoTitle, InputHorizontalWrapper, FormWrapper, HideContentWrapper, SuccessIcon } from './Home.style';
+import { HomePostSlideSection, HomeTopSection, HomeTopSectionContent, HomeTopSectionLeft, HomeTopSectionRight, HomeTopSectionRightContent, HomeWrapper, PostCategory, RecentPostWrapper, RecentWrapper, WrapperDiv, RecentPost, RecentPostImg, RecentPostContent, PostTitleStyled, PostIconStyled, EditStyled, EditIconStyled, EditTitledStyled, AuthorStyled, AuthorIconStyled, AuthorTitledStyled, DateStyled, DateIconStyled, DateTitledStyled, PostLink, EnternCat, EnterRecent, EnterCat, EntertainCatWrapper, CatWrapper, CategorList, CategoryListItem, MarginTop, FashionCat, FashionCatImag, FashionCatText, Ads, SocialMedia, SocialListItem, Subscibe, SubscibeWrapper, InputStyled, VideoWrapper, VideoCover, VideoPlayIcon, VideoOverlay, VideoAuthor, VideoTitle, InputHorizontalWrapper, FormWrapper, HideContentWrapper, SuccessIcon, NavigationStyle } from './Home.style';
 import Input from '../../components/input_2/Input';
 import TextArea from '../../components/textarea/TextArea';
 import SelectInput from '../../components/selectInput/SelectInput';
@@ -9,13 +9,15 @@ import axios from 'axios';
 import Overlay from '../../components/overlay/Overlay';
 import {GiCheckMark} from 'react-icons/gi'
 import ButtonLoader from '../../components/clicks/button/button_loader/ButtonLoader';
+import { useNavigate } from 'react-router-dom';
 
 
 
 const Home = () => {
 
-    const [showSuccessCard, setShowSuccessCard ] = useState(true);
+    const [showSuccessCard, setShowSuccessCard ] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+  
 
     // Category data selection
 const category = [
@@ -444,6 +446,7 @@ const category = [
                 </SuccessIcon>
                 <p>We have received your information and will get in touch with you soon</p>
             </Overlay>}
+
         </HomeWrapper>
     );
 };
