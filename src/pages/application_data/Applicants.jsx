@@ -6,6 +6,7 @@ import styled from 'styled-components'; // Import styled-components
 import { ButtonWrapper, DataTableContent, DataTableWrapper, NoData, StyledTable, StyledTableCell, StyledTableHead } from './applicant.style';
 import Button from '../../components/clicks/button/Button';
 import { useNavigate } from 'react-router-dom';
+import Loader from '../../components/loader/Loader';
 
 
 // Define styled-components for table elements
@@ -14,15 +15,19 @@ import { useNavigate } from 'react-router-dom';
 const DataTable = () => {
   const [data, setData] = useState([]);
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     // Fetch data from your API or MongoDB
     const fetchData = async () => {
+      setIsLoading(true)
       try {
         const response = await axios.get(`${process.env.REACT_APP_URL}/api/users`); // Replace with your API endpoint
         setData(response.data);
+        setIsLoading(false)
       } catch (error) {
         console.error('Error fetching data:', error);
+        setIsLoading(false)
       }
     };
 
@@ -69,8 +74,10 @@ if(data.length === 0){
 }
 
 
-  return (
-    <DataTableWrapper>
+  return (<>{
+    isLoading ? 
+    (<Loader/>) :
+    (<DataTableWrapper>
       <DataTableContent>
         {/* Button to trigger export */}
         <ButtonWrapper>
@@ -127,7 +134,8 @@ if(data.length === 0){
           </StyledTable>
         </TableContainer>
       </DataTableContent>
-    </DataTableWrapper>
+    </DataTableWrapper>)}
+    </>
   );
 };
 
