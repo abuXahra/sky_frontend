@@ -67,78 +67,78 @@ const DataTable = () => {
 
 
 
-if(data.length === 0){
-  return (
-    <NoData>No Data</NoData>
-  );
-}
+  if (data.length === 0) {
+    return (
+      <NoData><Loader /></NoData>
+    );
+  }
 
 
   return (<>{
-    isLoading ? 
-    (<Loader/>) :
-    (<DataTableWrapper>
-      <DataTableContent>
-        {/* Button to trigger export */}
-        <ButtonWrapper>
+    isLoading ?
+      (<Loader />) :
+      (<DataTableWrapper>
+        <DataTableContent>
+          {/* Button to trigger export */}
+          <ButtonWrapper>
             <Button
-              btnColor={'green'} 
+              btnColor={'green'}
               btnOnClick={exportToExcel}
               btnText={'Export'}
               btnPd={"10px"}
             />
-            
+
             <Button
-              btnColor={'black'} 
-              btnOnClick={()=> navigate('/')}
+              btnColor={'black'}
+              btnOnClick={() => navigate('/')}
               btnText={'Home'}
               btnPd={"10px"}
             />
-        </ButtonWrapper>
-  
+          </ButtonWrapper>
 
-        <TableContainer component={Paper}>
-          <StyledTable>
-            <StyledTableHead>
-              <TableRow>
-                <StyledTableCell>S/N</StyledTableCell> {/* Serial Number Column */}
-                <StyledTableCell>First Name</StyledTableCell>
-                <StyledTableCell>Last Name</StyledTableCell>
-                <StyledTableCell>Email</StyledTableCell>
-                <StyledTableCell>Phone Number</StyledTableCell>
-                <StyledTableCell>Shop Address</StyledTableCell>
-                <StyledTableCell>Category</StyledTableCell>
-                <StyledTableCell>Support Type</StyledTableCell>
-                <StyledTableCell>School Name</StyledTableCell>
-                <StyledTableCell>Year of Graduation</StyledTableCell>
-                <StyledTableCell>Course of Study</StyledTableCell>
-                <StyledTableCell>Level</StyledTableCell>
-                
-              </TableRow>
-            </StyledTableHead>
-            <TableBody>
-              {data.map((user, index) => (
-                <TableRow key={index}>
-                  <TableCell>{index + 1}</TableCell> {/* Serial Number */}
-                  <TableCell>{user.firstName}</TableCell>
-                  <TableCell>{user.lastName}</TableCell>
-                  <TableCell>{user.email}</TableCell>
-                  <TableCell>{user.phoneNumber}</TableCell>
-                  <TableCell>{user.shopAddress}</TableCell>
-                  <TableCell>{user.selectedCategory}</TableCell>
-                  <TableCell>{user.selectedCategory === 'Entrepreneur' ? user.selectedSupportType : '-'}</TableCell>
-                  <TableCell>{user.nameOfSchoolG || user.nameOfSchoolS || '-'}</TableCell>
-                  <TableCell>{user.yearOfGraduateG || '-'}</TableCell>
-                  <TableCell>{user.courseOfStudyG || user.courseOfStudyS || '-'}</TableCell>
-                  <TableCell>{user.levelS || '-'}</TableCell>
+
+          <TableContainer component={Paper}>
+            <StyledTable>
+              <StyledTableHead>
+                <TableRow>
+                  <StyledTableCell>S/N</StyledTableCell> {/* Serial Number Column */}
+                  <StyledTableCell>First Name</StyledTableCell>
+                  <StyledTableCell>Last Name</StyledTableCell>
+                  <StyledTableCell>Email</StyledTableCell>
+                  <StyledTableCell>Phone Number</StyledTableCell>
+                  <StyledTableCell>Shop Address</StyledTableCell>
+                  <StyledTableCell>Category</StyledTableCell>
+                  <StyledTableCell>Support Type</StyledTableCell>
+                  <StyledTableCell>School Name</StyledTableCell>
+                  <StyledTableCell>Year of Graduation</StyledTableCell>
+                  <StyledTableCell>Course of Study</StyledTableCell>
+                  <StyledTableCell>Level</StyledTableCell>
+
                 </TableRow>
-              ))}
-            </TableBody>
-          </StyledTable>
-        </TableContainer>
-      </DataTableContent>
-    </DataTableWrapper>)}
-    </>
+              </StyledTableHead>
+              <TableBody>
+                {data.map((user, index) => (
+                  <TableRow key={index}>
+                    <TableCell>{index + 1}</TableCell> {/* Serial Number */}
+                    <TableCell>{user.firstName}</TableCell>
+                    <TableCell>{user.lastName}</TableCell>
+                    <TableCell>{user.email}</TableCell>
+                    <TableCell>{user.phoneNumber}</TableCell>
+                    <TableCell>{user.shopAddress}</TableCell>
+                    <TableCell>{user.selectedCategory}</TableCell>
+                    <TableCell>{user.selectedCategory === 'Entrepreneur' ? user.selectedSupportType : '-'}</TableCell>
+                    <TableCell>{user.nameOfSchoolG || user.nameOfSchoolS || '-'}</TableCell>
+                    <TableCell>{user.yearOfGraduateG || '-'}</TableCell>
+                    <TableCell>{user.courseOfStudyG || user.courseOfStudyS || '-'}</TableCell>
+                    <TableCell>{user.levelS || '-'}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </StyledTable>
+          </TableContainer>
+        </DataTableContent>
+      </DataTableWrapper>)}
+  </>
   );
 };
 
